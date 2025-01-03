@@ -1,0 +1,26 @@
+package com.tm.entities;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name="users")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class userEntity extends baseEntity {
+    @Column(length = 100, name = "name", nullable = false, unique = true)
+    private String username;
+    @Column(name = "password", nullable = false)
+    private String password;
+    @Column(length = 100, name = "email", nullable = false, unique = true)
+    private String email;
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdOn = LocalDateTime.now();
+}
