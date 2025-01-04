@@ -1,5 +1,5 @@
 package com.tm.entities;
 
-public enum taskStatus {
+public enum TaskStatus {
     PENDING, COMPLETED;
 }

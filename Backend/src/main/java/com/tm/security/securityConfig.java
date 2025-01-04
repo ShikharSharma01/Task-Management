@@ -1,39 +1,39 @@
 package com.tm.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-public class securityConfig {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private customAuthenticationEntryPoint authEntry;
+    private CustomUserDetailsService userDetailsService;
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .cors()
-                .and()
-                .csrf()
-                .disable()
-                .exceptionHandling()
-                .authenticationEntryPoint(authEntry)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/public/**").permitAll() // Publicly accessible endpoints
-                .antMatchers(HttpMethod.OPTIONS).permitAll() // Allow preflight requests
-                .anyRequest().authenticated() // Secure all other endpoints
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS); // Stateless for REST APIs
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.
+                cors().
+                and().
+                csrf().disable().
+                authorizeRequests().
+                antMatchers("/home/**").permitAll().
+                anyRequest().authenticated().
+                and().
+                sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
+                and().httpBasic();
+    }
 
-        return http.build();
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        System.out.println("Step 1.8 ");
+        System.out.println(auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder()));
+        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
 }

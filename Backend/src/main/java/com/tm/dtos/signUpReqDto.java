@@ -5,11 +5,10 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class signUpReqDto {
+public class SignUpReqDto {
 
-    private String name;
+    private String username;
     private String password;
-    private String confirm_password;
     private String email;
 
 }

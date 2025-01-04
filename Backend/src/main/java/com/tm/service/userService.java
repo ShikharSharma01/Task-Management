@@ -1,9 +1,10 @@
 package com.tm.service;
 
-import com.tm.entities.userEntity;
+import com.tm.entities.UserEntity;
 
-public interface userService {
-    userEntity getUser(String userEmail);
+public interface UserService {
 
-    void registerUser(userEntity user);
+    String registerUser(UserEntity user);
+
+    UserEntity findByUsername(String userName);
 }

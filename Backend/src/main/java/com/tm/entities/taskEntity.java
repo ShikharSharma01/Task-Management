@@ -14,13 +14,13 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class taskEntity extends baseEntity {
+public class TaskEntity extends BaseEntity {
     @Column(length = 100, nullable = false)
     private String title;
     @Column(length = 200, nullable = false)
     private String description;
     @Column(nullable = false)
-    private taskStatus status = taskStatus.PENDING;
+    private TaskStatus status = TaskStatus.PENDING;
     @Column(nullable = false)
     private int priority;
     @Column(nullable = false)

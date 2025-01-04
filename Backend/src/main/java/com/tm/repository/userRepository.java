@@ -1,9 +1,13 @@
 package com.tm.repository;
 
-import com.tm.entities.userEntity;
+import com.tm.entities.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface userRepository extends JpaRepository<userEntity, Long> {
+import java.util.Optional;
 
-    userEntity findByEmail(String email);
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
+
+    Optional<UserEntity> findByEmail(String email);
+
+    UserEntity findByUsername(String userName);
 }

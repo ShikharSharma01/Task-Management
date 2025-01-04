@@ -14,13 +14,15 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class userEntity extends baseEntity {
+public class UserEntity extends BaseEntity {
     @Column(length = 100, name = "name", nullable = false, unique = true)
     private String username;
     @Column(name = "password", nullable = false)
     private String password;
     @Column(length = 100, name = "email", nullable = false, unique = true)
     private String email;
+    @Column()
+    private UserRole role;
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdOn = LocalDateTime.now();
 }
