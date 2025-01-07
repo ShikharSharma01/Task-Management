@@ -4,18 +4,17 @@ import com.tm.dtos.SignUpReqDto;
 import com.tm.dtos.SignUpRespDto;
 import com.tm.entities.UserEntity;
 import com.tm.entities.UserRole;
-import com.tm.repository.UserRepository;
 import com.tm.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/home")
+@CrossOrigin("*")
 public class HomeController {
 
     @Autowired
@@ -32,9 +31,14 @@ public class HomeController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<String> userLogin() {
+        //userService.
+        return ResponseEntity.status(HttpStatus.OK).body("User Logged In!!");
+    }
+
     @GetMapping
-    public ResponseEntity<String> entryMethod() {
-        System.out.println("1 step - entry Method!!");
-        return ResponseEntity.status(HttpStatus.CREATED).body("Spring Application Launched!!");
+    public ResponseEntity<String> entryMethod(HttpServletRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body("Spring Application Launched!! " + request.getRequestedSessionId());
     }
 }
