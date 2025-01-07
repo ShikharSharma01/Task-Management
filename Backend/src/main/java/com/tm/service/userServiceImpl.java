@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserEntity findByUsername(String userName) {
-        System.out.println("UserName : " + userName);
+//        System.out.println("UserName : " + userName);
         System.out.println(userRepository.findByUsername(userName));
         return userRepository.findByUsername(userName);
     }
